@@ -22,7 +22,7 @@ class Main {
         dp[0][1] = 0;
         dp[1][0] = 0;
         dp[1][1] = 1;
-        
+
         Main T = new Main();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
