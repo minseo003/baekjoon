@@ -4,8 +4,7 @@ class Main {
 
     public int solution(String str) {
         String[] alpha = {"c=","c-","dz=","d-","lj","nj","s=","z="};
-
-        if(str.length() == 0) return 0;
+        
 
         for (int i = 0; i < alpha.length; i++) {
             if(str.contains(alpha[i])) str = str.replace(alpha[i], "0");
