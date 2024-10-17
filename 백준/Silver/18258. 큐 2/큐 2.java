@@ -5,7 +5,6 @@ class Main {
 
     public static void main(String[] args) throws Exception {
         Main T = new Main();
-        ArrayList<String> list = new ArrayList<>();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
