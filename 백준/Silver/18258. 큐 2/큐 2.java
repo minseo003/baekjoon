@@ -12,6 +12,7 @@ class Main {
         int[] queue = new int[n*2];
         int front = 0;
         int rear = -1;
+        int tmp = 0;
 
         for(int i = 0; i < n; i++) {
             String[] s = br.readLine().split(" ");
@@ -26,16 +27,16 @@ class Main {
             }
             else if(s[0].equals("size")) bw.write(rear-front+1 + "\n");
             else if(s[0].equals("empty")) {
-                if(rear-front+1 == 0) bw.write(1 + "\n");
-                else bw.write(0 + "\n");
+                tmp = (rear-front+1 == 0) ? 1 : 0;
+                bw.write(tmp + "\n");
             }
             else if(s[0].equals("front")) {
-                if(rear-front+1 == 0) bw.write(-1 + "\n");
-                else bw.write(queue[front] + "\n");
+                tmp = (rear-front+1 == 0) ? -1 : queue[front];
+                bw.write(tmp + "\n");
             }
             else {
-                if(rear-front+1 == 0) bw.write(-1 + "\n");
-                else bw.write(queue[rear] + "\n");
+                tmp = (rear-front+1 == 0) ? -1 : queue[rear];
+                bw.write( tmp + "\n");
             }
         }
         bw.flush();
