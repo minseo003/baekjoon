@@ -22,14 +22,14 @@ class Main {
     static void bfs(int r) {
         Queue<Integer> queue = new LinkedList<>();
         queue.offer(r);
-        System.out.print(r + " ");
         ch[r] = true;
-
         while(!queue.isEmpty()) {
-            for(int x : list.get(queue.poll())) {
+            int tmp = queue.poll();
+            System.out.print(tmp + " ");
+
+            for(int x : list.get(tmp)) {
                 if(!ch[x]) {
                     queue.offer(x);
-                    System.out.print(x + " ");
                     ch[x] = true;
                 }
             }
