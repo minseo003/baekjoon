@@ -16,7 +16,7 @@ class Main {
         dist[n] = 0;
 
         while (!queue.isEmpty()) {
-
+            if(ch[k] == true) break;
             int tmp = queue.poll();
 
             for (int i = 0; i < 3; i++) {
