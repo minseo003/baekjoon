@@ -7,9 +7,9 @@ public class Main {
     static int N;
     static int[] city;
     static int[] dis;
-    static int answer = 0;
+    static long answer = 0;
 
-    static int solution() {
+    static long solution() {
         long minCost = city[0];
 
         for(int i = 0 ; i < N-1; i++) {
