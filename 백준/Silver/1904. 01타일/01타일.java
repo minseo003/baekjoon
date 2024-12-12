@@ -9,9 +9,9 @@ public class Main {
 
     static int solution(int x) {
         if (dp[x] == -1) {
-            dp[x] =  (solution(x-1) + solution(x-2)) % 15746;
+            dp[x] =  solution(x-1) + solution(x-2);
         }
-        return dp[x];
+        return dp[x] % 15746;
     }
 
     public static void main(String[] args) throws Exception{
