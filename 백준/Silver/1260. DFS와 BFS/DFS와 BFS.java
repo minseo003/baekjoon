@@ -1,69 +1,69 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
+
 
 class Main {
 
-    static ArrayList<ArrayList<Integer>> list = new ArrayList<>();
-    static int n;
-    static boolean[] ch;
+    static ArrayList<ArrayList<Integer>> arr = new ArrayList<>();
+    static StringBuilder sb = new StringBuilder();
+    static ArrayList<Integer> answer = new ArrayList<>();
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine()," ");
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+        int v = Integer.parseInt(st.nextToken());
 
-    static void dfs(int r) {
+        boolean[] ch = new boolean[n+1];
+        for (int i = 0; i <= n; i++) {
+            arr.add(new ArrayList<Integer>());
+        }
 
-        ch[r] = true;
-        System.out.print(r + " ");
+        for (int j = 0; j < m; j++) {
+            st = new StringTokenizer(br.readLine()," ");
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
+            arr.get(a).add(b);
+            arr.get(b).add(a);
+        }
+        for (int i = 0; i < arr.size(); i++) {
+            Collections.sort(arr.get(i));
+        }
 
-        for(int x : list.get(r)) {
+        dfs(v, ch);
+        System.out.println(sb.toString());
+        Arrays.fill(ch, false);
+        sb = new StringBuilder();
+        bfs(v,ch);
+        System.out.println(sb.toString());
+    }
+
+    static void dfs(int v,boolean[] ch) {
+        sb.append(v + " ");
+        ch[v] = true;
+
+        for(int x : arr.get(v)) {
             if(!ch[x]) {
-                dfs(x);
+                dfs(x,ch);
             }
         }
     }
 
-    static void bfs(int r) {
+    static void bfs(int v, boolean[] ch) {
         Queue<Integer> queue = new LinkedList<>();
-        queue.offer(r);
-        ch[r] = true;
-        while(!queue.isEmpty()) {
-            int tmp = queue.poll();
-            System.out.print(tmp + " ");
+        queue.offer(v);
+        ch[v] = true;
+        sb.append(v + " ");
 
-            for(int x : list.get(tmp)) {
+        while (!queue.isEmpty()) {
+            int tmp = queue.poll();
+            for (int x : arr.get(tmp)) {
                 if(!ch[x]) {
-                    queue.offer(x);
                     ch[x] = true;
+                    sb.append(x + " ");
+                    queue.offer(x);
                 }
             }
         }
     }
-
-    public static void main(String[] args) throws Exception{
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine()," ");
-        n = Integer.parseInt(st.nextToken());
-        int m = Integer.parseInt(st.nextToken());
-        int r = Integer.parseInt(st.nextToken());
-
-        for(int i = 0 ; i <= n ; i++ ) { //초기화
-            list.add(new ArrayList<>());
-        }
-
-        for(int i = 0; i < m; i++) {
-            st = new StringTokenizer(br.readLine(), " ");
-            int a = Integer.parseInt(st.nextToken());
-            int b = Integer.parseInt(st.nextToken());
-            list.get(a).add(b);
-            list.get(b).add(a);
-        }
-
-        for(int i = 1 ; i <= n; i++) {
-            Collections.sort(list.get(i));  //오름차순 정렬
-        }
-
-        ch = new boolean[n+1];
-        dfs(r);
-        System.out.println();
-        ch = new boolean[n+1];
-        bfs(r);
-    }
-
 }
