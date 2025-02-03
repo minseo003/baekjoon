@@ -1,28 +1,27 @@
 import java.util.*;
 import java.io.*;
 
-
 class Main {
 
-    static int answer = Integer.MAX_VALUE;
-
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws IOException {
+        int answer = 0;
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer sub = new StringTokenizer(br.readLine(), "-");
-        while(sub.hasMoreTokens()) {
-            int num = 0;
-            StringTokenizer add = new StringTokenizer(sub.nextToken(),"+");
-            while(add.hasMoreTokens()) {
-                num += Integer.parseInt(add.nextToken());
-            }
-            if(answer == Integer.MAX_VALUE) {
-                answer = num;
-            }else {
-                answer -= num;
+        String[] string = br.readLine().split("-");
+        String[] addNum = string[0].split("\\+");
+
+        for (int i = 0; i < addNum.length; i++) {
+            answer += Integer.parseInt(addNum[i]);
+        }
+
+        for(int i = 1 ; i < string.length ; i++) {
+            String[] subNum = string[i].split("\\+");
+            for(int j = 0 ; j < subNum.length ; j++) {
+                answer -= Integer.parseInt(subNum[j]);
             }
         }
         bw.write(answer + "\n");
+        br.close();
         bw.flush();
         bw.close();
     }
