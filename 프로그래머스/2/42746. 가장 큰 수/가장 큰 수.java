@@ -6,20 +6,21 @@ class Solution {
 
         ArrayList<String> arr = new ArrayList<>();
 
-        for (int i = 0; i < numbers.length; i++) {
-            arr.add(Integer.toString(numbers[i]));
-        }
-        Collections.sort(arr, (x, y) -> (y + x).compareTo(x + y));
-
-        StringBuilder answer = new StringBuilder();
-        for (String num : arr) {
-            answer.append(num);
+        for (int x : numbers) {
+            arr.add(Integer.toString(x));
         }
 
-        if (answer.toString().startsWith("0")) {
+        Collections.sort(arr, (x, y) ->(y + x).compareTo(x + y));
+
+        StringBuilder sb = new StringBuilder();
+
+        if (arr.get(0).equals("0")) {
             return "0";
         }
+        for (String s : arr) {
+            sb.append(s);
+        }
 
-        return answer.toString();
-    }
+        return sb.toString();
+        }
 }
