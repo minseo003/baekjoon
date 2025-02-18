@@ -1,48 +1,55 @@
 import java.util.*;
+import java.io.*;
+
 
 class Main {
 
-    static int N,K;
+    static int n,k;
     static int[] dx = {1,-1,2};
-    static int[] dist;
-    static boolean[] ch;
+    static int[] dist = new int[100001];
+    static Queue<Integer> queue = new LinkedList<>();
+    static boolean[] visited = new boolean[100001];
 
-    static void bfs(int n, int k){
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringTokenizer st = new StringTokenizer(br.readLine() , " ");
+        n = Integer.parseInt(st.nextToken());
+        k = Integer.parseInt(st.nextToken());
+        bfs();
+        bw.write(dist[k] + "\n");
+        br.close();
+        bw.flush();
+        bw.close();
+    }
+
+
+    static void bfs() {
         int nx = 0;
-        Queue<Integer> queue = new LinkedList<>();
-
-        ch[n] = true;
+        visited[n] = true;
         queue.offer(n);
         dist[n] = 0;
 
-        while (!queue.isEmpty()) {
-            if(ch[k] == true) break;
-            int tmp = queue.poll();
+        while(!queue.isEmpty()) {
 
-            for (int i = 0; i < 3; i++) {
-                if (i == 2) {
-                    nx = tmp * dx[i];
-                } else {
-                    nx = tmp + dx[i];
+            if(visited[k]) {
+                break;
+            }
+            Integer cur = queue.poll();
+
+            for(int i = 0 ; i < 3; i++) {
+                if(i == 2) {
+                    nx = cur * dx[i];
+                }else {
+                    nx = cur + dx[i];
                 }
 
-                if (nx >= 0 && nx <= 100000 && ch[nx] == false) {
-                    ch[nx] = true;
-                    dist[nx] = dist[tmp] + 1;
+                if(nx >= 0 && nx <= 100000 && !visited[nx]) {
+                    visited[nx] = true;
+                    dist[nx] = dist[cur] + 1;
                     queue.offer(nx);
                 }
             }
         }
     }
-    public static void main(String[] args) {
-        Scanner kb = new Scanner(System.in);
-        String[] s = kb.nextLine().split(" ");
-        N = Integer.parseInt(s[0]);
-        K = Integer.parseInt(s[1]);
-        ch = new boolean[100001];
-        dist = new int[100001];
-        bfs(N,K);
-        System.out.println(dist[K]);
-    }
-
 }
