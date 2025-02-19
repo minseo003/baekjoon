@@ -1,40 +1,41 @@
-import java.util.*;
+import java.io.*;
+import java.util.StringTokenizer;
 
-class Main {
-    public int solution(int n, int s, int[] arr) {
-        int lt = 0, rt = 0;
-        int tmp = 0;
-        int answer = Integer.MAX_VALUE;
-        boolean flag = true;
-
-        while (true) {
-            if (tmp >= s) {
-                while (tmp >= s) {
-                    answer = Math.min(answer, rt-lt);
-                    tmp -= arr[lt++];
-                    flag = false;
-                }
-            } else{
-                if(rt >= arr.length) break;
-                tmp += arr[rt++];
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+        
+        int n = Integer.parseInt(st.nextToken());
+        int s = Integer.parseInt(st.nextToken());
+        
+        int[] arr = new int[n];
+        st = new StringTokenizer(br.readLine(), " ");
+        for (int i = 0; i < n; i++) {
+            arr[i] = Integer.parseInt(st.nextToken());
+        }
+        
+        int start = 0, end = 0;
+        int current_sum = 0;
+        int min_length = n + 1;
+        
+        while (end < n) {
+            // current_sum이 s 이상이 될 때까지 end를 증가시키며 더함
+            while (current_sum < s && end < n) {
+                current_sum += arr[end++];
+            }
+            
+            // current_sum이 s 이상인 상태에서 start를 증가시키며 최소 길이 갱신
+            while (current_sum >= s && start < n) {
+                min_length = Math.min(min_length, end - start);
+                current_sum -= arr[start++];
             }
         }
-        if(flag) return 0;
-        return answer;
-
-    }
-
-    public static void main(String[] args) {
-        Main T = new Main();
-        Scanner kb = new Scanner(System.in);
-        int n = kb.nextInt();
-        int s = kb.nextInt();
-        int[] arr = new int[n];
-
-        for (int i = 0; i < n; i++) {
-            arr[i] = kb.nextInt();
+        
+        if (min_length == n + 1) {
+            System.out.println(0);
+        } else {
+            System.out.println(min_length);
         }
-        System.out.print(T.solution(n, s, arr));
     }
-
 }
