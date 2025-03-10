@@ -1,44 +1,58 @@
 import java.util.*;
 import java.io.*;
 
+class line implements Comparable<line>{
+    int start;
+    int end;
+
+    public line(int start, int end) {
+        this.start = start;
+        this.end = end;
+    }
+
+    @Override
+    public int compareTo(line o) {
+        if (this.start == o.start) {
+            return this.end - o.end;
+        } else {
+            return this.start - o.start;
+        }
+    }
+}
+
 class Main {
 
     public static void main(String[] args) throws IOException {
-        int left, right = 0;
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-
+        ArrayList<line> lines = new ArrayList<>();
         int n = Integer.parseInt(br.readLine());
-        int[][] arr = new int[n][2];
+
         for(int i = 0 ; i < n ; i++) {
-            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-            arr[i][0] = Integer.parseInt(st.nextToken());
-            arr[i][1] = Integer.parseInt(st.nextToken());
+            StringTokenizer st = new StringTokenizer(br.readLine()," ");
+            lines.add(new line(Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken())));
         }
-        Arrays.sort(arr, (o1, o2) -> {
-            if (o1[0] == o2[0]) {
-                return o1[1] - o2[1];
-            } else return o1[0] - o2[0];
-        });
+        Collections.sort(lines);
+        int start = lines.get(0).start;
+        int end = lines.get(0).end;
+        int len = end - start;
 
-        int x = arr[0][0];
-        int y = arr[0][1];
-        int len = y-x;
-
-        for(int i = 0; i < n; i++){
-            if(x <= arr[i][0] && arr[i][1] <= y) { //포함된 경우
+        for(int i = 1 ; i < n ; i++) {
+            if(start <= lines.get(i).start && end >= lines.get(i).end) {
                 continue;
-            } else if(arr[i][0] < y) { //일부만 포함된 경우
-                len += arr[i][1] - y;
-            } else { //겹치는 부분이 없는 경우
-                len += arr[i][1] - arr[i][0];
+            } else if(lines.get(i).start < end) {
+                len += lines.get(i).end - end;
+            } else {
+                len += lines.get(i).end - lines.get(i).start;
             }
-            x = arr[i][0];
-            y = arr[i][1];
+            start = lines.get(i).start;
+            end = lines.get(i).end;
         }
-        bw.write((len) + "\n");
+
+        bw.write(len + "\n");
         br.close();
         bw.flush();
         bw.close();
+
     }
 }
