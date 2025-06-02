@@ -1,20 +1,16 @@
 import java.util.*;
+import java.io.*;
 
 class Main {
 
-    public int solution(String str) {
-        str = str.trim();
-        String[] sar = str.split(" ");
-        if(sar[0] == "") return 0;
-        return sar.length;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String line = br.readLine().trim();
+        if(line.isEmpty()) {
+            System.out.println(0);
+            System.exit(0);
+        }
+        String[] s = line.split(" ");
+        System.out.println(s.length);
     }
-
-    public static void main(String[] args) throws Exception {
-        Main T = new Main();
-        Scanner kb = new Scanner(System.in);
-        String str = kb.nextLine();
-        System.out.print(T.solution(str));
-    }
-
-
 }
