@@ -1,33 +1,29 @@
 import java.util.*;
 import java.io.*;
 
-
 class Main {
-    static int N;
 
-    public static int solution(int n) {
-        for (int i = 0; i < n; i++) {
-            int x = i;
-            int tmp = 0;
-            while (!(x == 0)) {
-                tmp += x%10;
-                x = x/10;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        int result = 0;
+
+        int n = Integer.parseInt(br.readLine());
+
+        for(int i = 0 ; i < n ; i++) {
+            int number = i;
+            int sum = 0;
+
+            while(number != 0) {  //각 자릿수 더하기
+                sum += number % 10;
+                number /= 10;
             }
-            if ((n - i) == tmp) {
-                return i;
+
+            if(sum + i == n) {
+                result = i;
+                break;
             }
         }
-        return 0;
-    }
-
-
-    public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        N = Integer.parseInt(br.readLine());
-        br.close();
-        bw.write(solution(N) + " \n");
-        bw.flush();
-        bw.close();
+        System.out.println(result);
     }
 }
