@@ -3,32 +3,41 @@ import java.io.*;
 
 class Main {
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine()," ");
+        StringTokenizer st = new StringTokenizer(br.readLine());
         int n = Integer.parseInt(st.nextToken());
-        int m = Integer.parseInt(st.nextToken());
-        st = new StringTokenizer(br.readLine()," ");
-        br.close();
         int[] arr = new int[n];
-        for(int i = 0 ; i < n ; i++ ) {
+        int m = Integer.parseInt(st.nextToken());
+        st = new StringTokenizer(br.readLine());
+
+        for(int i = 0 ; i < n ; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
+        int result = search(arr, n, m);
+        System.out.println(result);
+    }
 
-        int tmp = 0;
-        int answer = 0;
+    static int search(int[] arr, int n, int m) {
+        int result = 0;
 
-        for (int i = 0; i < n - 2; i++) {
-            for (int j = i + 1; j < n - 1; j++) {
-                for (int k = j + 1; k < n; k++) {
-                    tmp = arr[i] + arr[j] + arr[k];
-                    if(tmp > answer && tmp <= m) answer = tmp;
+        for(int i = 0 ; i < n-2 ; i++) {
+
+            for(int j = i + 1 ; j < n-1 ; j++) {
+
+                for(int k = j + 1 ; k < n ; k++) {
+                    int tmp = arr[i] + arr[j] + arr[k];
+
+                    if(m == tmp) {
+                        return tmp;
+                    }
+
+                    if(result < tmp && tmp < m) {
+                        result = tmp;
+                    }
                 }
             }
         }
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        bw.write(answer + "\n");
-        bw.flush();
-        bw.close();
+        return result;
     }
 }
